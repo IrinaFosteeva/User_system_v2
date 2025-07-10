@@ -1,10 +1,9 @@
-version: '3.8'
+version: "3.8"
 
 services:
   db:
     image: postgres:16
-    container_name: postgres_db
-    restart: always
+    container_name: my_postgres
     ports:
       - "${POSTGRES_PORT}:5432"
     environment:
@@ -12,7 +11,29 @@ services:
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
       POSTGRES_DB: ${POSTGRES_DB}
     volumes:
-      - pgdata:/var/lib/postgresql/data
+      - postgres_data:/var/lib/postgresql/data
+
+  migrate:
+    image: migrate/migrate:v4.15.2
+    depends_on:
+      - db
+    command: [
+      "-path", "/migrations",
+      "-database", "postgres://postgres:123postgres@db:5432/myappdb?sslmode=disable",
+      "up"
+    ]
+    volumes:
+      - ./migrations:/migrations
+
+  app:
+    build: .
+    depends_on:
+      - db
+      - migrate
+    ports:
+      - "8080:8080"
+    environment:
+      - POSTGRES_DSN=postgres://postgres:123postgres@db:5432/myappdb?sslmode=disable
 
 volumes:
-  pgdata:
+  postgres_data:
