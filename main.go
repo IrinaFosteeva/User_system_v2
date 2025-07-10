@@ -3,7 +3,7 @@ package main
 import (
 	"User_system_v2/internal/db"
 	"User_system_v2/internal/handlers"
-	"User_system_v2/internal/model"
+	"User_system_v2/internal/storage"
 	"User_system_v2/internal/storage/memorystorage"
 	"User_system_v2/internal/storage/postgresstorage"
 	"fmt"
@@ -20,7 +20,7 @@ func main() {
 	}
 
 	driver := os.Getenv("STORAGE_DRIVER")
-	var store model.Storage
+	var store storage.Storage
 
 	switch driver {
 	case "memory":

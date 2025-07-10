@@ -2,13 +2,14 @@ package handlers
 
 import (
 	"User_system_v2/internal/model"
+	"User_system_v2/internal/storage"
 	"encoding/json"
 	"net/http"
 	"strconv"
 	"strings"
 )
 
-func MakePersonsHandler(store model.Storage) http.HandlerFunc {
+func MakePersonsHandler(store storage.Storage) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		switch r.Method {
 		case http.MethodGet:
@@ -38,7 +39,7 @@ func MakePersonsHandler(store model.Storage) http.HandlerFunc {
 	}
 }
 
-func MakePersonHandler(store model.Storage) http.HandlerFunc {
+func MakePersonHandler(store storage.Storage) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		idStr := strings.TrimPrefix(r.URL.Path, "/persons/")
 		id, err := strconv.Atoi(idStr)
