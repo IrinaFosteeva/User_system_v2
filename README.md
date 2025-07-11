@@ -51,11 +51,11 @@ docker-compose up --build -d
 
 Получить всех пользователей:
 
-GET http://localhost:8080/persons
+GET http://localhost:8081/persons
 
 Создать пользователя:
 
-POST http://localhost:8080/persons
+POST http://localhost:8081/persons
 Content-Type: application/json
 
 {
@@ -65,12 +65,12 @@ Content-Type: application/json
 
 Получить по ID:
 
-GET http://localhost:8080/persons/1
+GET http://localhost:8081/persons/1
 
 
 Обновить пользователя:
 
-PATCH http://localhost:8080/persons/1
+PATCH http://localhost:8081/persons/1
 Content-Type: application/json
 
 {
@@ -79,5 +79,5 @@ Content-Type: application/json
 
 Удалить пользователя:
 
-DELETE http://localhost:8080/persons/1
+DELETE http://localhost:8081/persons/1
 
